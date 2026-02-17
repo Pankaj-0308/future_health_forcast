@@ -32,5 +32,5 @@ Our goal is to empower Divyaang individuals to manage their health independently
 ➡️ __Project Proposal:__ Google Drive Link of Project Proposal is here->  ☑️ https://drive.google.com/file/d/1G4wgPxS7EZxVQySiraNhDDjpP8XYviJC/view?usp=drivesdk
 
 
-➡️ __Presentation Video:__ Youtube Link of Presentation Video is here->  ☑️ 
+➡️ __Presentation Video:__ Youtube Link of Presentation Video is here->  ☑️ https://drive.google.com/file/d/12NrXDUg_hhQ_-LpFj4O_gKjijREqsQwN/view?usp=drivesdk
 
