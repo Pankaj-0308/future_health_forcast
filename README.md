@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 # 🏥 HealthAI Assistant - AI-Powered Symptom Analysis System
 
+Final Video Link of Presentation: https://drive.google.com/file/d/1e9ax3M7pg6w8tIg8Z5NAVYXR1sLlYHDI/view?usp=drivesdk
 
 ✅ One-Click Setup (For chronic_patient)
 🔹 1. Open PowerShell
@@ -30,6 +31,79 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 Paste:
 
 http://localhost:8000
+
+
+
+
+
+
+✅ Blind Navigation Project – New Laptop Setup (Windows)
+🔹 1. Copy Project Folder
+
+Copy:
+
+Blind-Navigation-main
+
+to your new laptop.
+
+Make sure inside the folder you see:
+
+✔ index.html
+✔ package.json
+
+🔹 2. Install Node.js (ONE TIME)
+
+Download LTS version from:
+
+👉 https://nodejs.org
+
+Install normally → Next → Next → Finish.
+
+Verify:
+
+Open PowerShell and run:
+
+node -v
+
+You should see something like:
+
+v18.xx.x
+🔹 3. Open Project in PowerShell
+
+Press Windows + E
+
+Go inside:
+
+Blind-Navigation-main
+
+Click address bar → type:
+
+powershell
+
+Press Enter.
+
+Check files:
+
+dir
+
+You must see:
+
+index.html
+package.json
+🔹 4. Install Dependencies (Single Paste)
+npm install
+
+Wait until it finishes.
+
+🔹 5. Start Server
+npm run start
+🔹 6. Open in Browser
+
+Paste in Chrome / Edge:
+
+http://localhost:3000
+
+
 
 
 
