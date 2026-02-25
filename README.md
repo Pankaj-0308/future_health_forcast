@@ -2,6 +2,38 @@
 # 🏥 HealthAI Assistant - AI-Powered Symptom Analysis System
 
 
+✅ One-Click Setup (For chronic_patient)
+🔹 1. Open PowerShell
+Press:
+
+Windows + R → type powershell → Enter
+🔹 2. Go to project folder
+cd C:\chronic_patient
+🔹 3. Create virtual environment
+python -m venv .venv
+🔹 4. Activate it
+.\.venv\Scripts\activate
+
+You should see:
+
+(.venv)
+🔹 5. Install everything (single paste)
+pip install --upgrade pip
+pip install fastapi "uvicorn[standard]" numpy scikit-learn joblib pydantic-settings
+🔹 6. Train model (run once)
+python scripts/generate_training_data.py
+python app/train.py
+🔹 7. Start server
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+🔹 8. Open browser
+
+Paste:
+
+http://localhost:8000
+
+
+
+
 ➡️ __Problem Statement:- (Theme: Health)__
 
 Access to healthcare is still difficult for many differently-abled (Divyaang) individuals, especially in rural and underserved areas. Communication barriers, inaccessible health apps, and lack of continuous monitoring increase health risks and delay timely medical support.
