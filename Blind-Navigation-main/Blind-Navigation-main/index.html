@@ -1,0 +1,2240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syasthya AI - Advanced Smart Navigation AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2F80ED;
+            --primary-gradient: linear-gradient(135deg, #2F80ED, #56CCF2);
+            --background: #F4F7FB;
+            --card-bg: rgba(255,255,255,0.9);
+            --card-glass: rgba(255,255,255,0.7);
+            --text-dark: #1A1A1A;
+            --text-light: #6B7280;
+            --text-lighter: #9CA3AF;
+            --success: #27AE60;
+            --danger: #EB5757;
+            --warning: #F2C94C;
+            --radius: 16px;
+            --radius-lg: 20px;
+            --radius-sm: 12px;
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.08);
+            --shadow-md: 0 20px 40px rgba(0,0,0,0.12);
+            --shadow-hover: 0 20px 50px rgba(47,128,237,0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text-dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            font-weight: 400;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            background: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-soft);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-tagline {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        .navbar-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .navbar-link:hover,
+        .navbar-link.active {
+            color: var(--primary);
+        }
+
+        .navbar-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        .navbar-cta {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(47, 128, 237, 0.3);
+        }
+
+        .navbar-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(47, 128, 237, 0.4);
+        }
+
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            background: linear-gradient(135deg, #E8F0FE 0%, #F0F7FF 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        /* Background video (place BACKGROUND.mp4 at project root or adjust path) */
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.45) saturate(0.9);
+            pointer-events: none;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(47, 128, 237, 0.1), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(86, 204, 242, 0.1), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 800;
+            color:white;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(47, 128, 237, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(47, 128, 237, 0.5);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(15,40,80,0.25), rgba(15,40,80,0.35));
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-content { 
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ============================================
+           MAIN CONTAINER & LAYOUT
+           ============================================ */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 2px solid transparent;
+            color: var(--text-light);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-gradient);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================
+           CARDS - GLASSMORPHISM
+           ============================================ */
+        .card {
+            background: var(--card-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(47, 128, 237, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        /* ============================================
+           STAT CARDS
+           ============================================ */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============================================
+           MAIN CONTENT GRID
+           ============================================ */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .video-section {
+            background: var(--card-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .video-container {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: #000;
+            margin-bottom: 1.5rem;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-container.mirrored {
+            transform: scaleX(-1);
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid transparent;
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            min-width: 140px;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(47, 128, 237, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(47, 128, 237, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #EB5757, #E74C3C);
+            color: white;
+            box-shadow: 0 4px 15px rgba(235, 87, 87, 0.3);
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(235, 87, 87, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #F2C94C, #E8B923);
+            color: white;
+            box-shadow: 0 4px 15px rgba(242, 201, 76, 0.3);
+        }
+
+        .btn-warning:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(242, 201, 76, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ============================================
+           RIGHT SIDEBAR CARDS
+           ============================================ */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .status-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .status-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .status-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .status-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-value {
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .detection-list {
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            border: 1px solid rgba(47, 128, 237, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .detection-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 0.9rem;
+        }
+
+        .detection-item:last-child {
+            border-bottom: none;
+        }
+
+        .detection-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .detection-count {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .confidence-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        /* ============================================
+           QA SECTION
+           ============================================ */
+        .qa-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .question-box {
+            background: linear-gradient(135deg, rgba(242, 201, 76, 0.1), rgba(242, 201, 76, 0.05));
+            border: 2px solid rgba(242, 201, 76, 0.3);
+            border-radius: var(--radius-sm);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .question-box.active {
+            display: block;
+        }
+
+        .answer-box {
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(39, 174, 96, 0.05));
+            border: 2px solid rgba(39, 174, 96, 0.3);
+            border-radius: var(--radius-sm);
+            padding: 1.25rem;
+            display: none;
+        }
+
+        .answer-box.active {
+            display: block;
+        }
+
+        .question-label, .answer-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .question-label {
+            color: #E8B923;
+        }
+
+        .answer-label {
+            color: #27AE60;
+        }
+
+        .question-text, .answer-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .question-text {
+            color: var(--text-dark);
+        }
+
+        .answer-text {
+            color: var(--text-dark);
+        }
+
+        .listening-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--danger);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* ============================================
+           ANALYTICS & SETTINGS GRIDS
+           ============================================ */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .analytics-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+        }
+
+        .analytics-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .analytics-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-item-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .stat-item-value {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* ============================================
+           SETTINGS FORM
+           ============================================ */
+        .settings-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .settings-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .setting-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .setting-item label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .setting-item input[type="range"],
+        .setting-item select {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            border: 2px solid rgba(47, 128, 237, 0.2);
+            background: white;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .setting-item input[type="range"]:focus,
+        .setting-item select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(47, 128, 237, 0.1);
+        }
+
+        .setting-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+            cursor: pointer;
+            margin-right: 0.75rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            background: rgba(47, 128, 237, 0.05);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(47, 128, 237, 0.1);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* ============================================
+           HELP SECTION
+           ============================================ */
+        .help-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .help-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .help-card ol,
+        .help-card ul {
+            padding-left: 1.5rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .help-card li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar-menu {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-container {
+                padding: 1rem 0;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .tab-navigation {
+                gap: 0.5rem;
+            }
+
+            .tab-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+                min-width: auto;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-grid {
+                gap: 1.5rem;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-section {
+                padding: 1rem;
+            }
+
+            .btn {
+                min-width: 100%;
+                padding: 1rem 1.5rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .navbar-brand {
+                gap: 0.5rem;
+            }
+
+            .navbar-logo {
+                font-size: 1.25rem;
+            }
+
+            .navbar-cta {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                padding: 1.5rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .container {
+                padding: 0.5rem;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 1.25rem;
+            }
+
+            .tab-btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <div class="navbar-logo"><i class="fas fa-heart-pulse"></i> Syasthya AI</div>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="#" class="navbar-link active" data-tab="main">Home</a></li>
+                <li><a href="#" class="navbar-link" data-tab="main">Live Detection</a></li>
+                <li><a href="#" class="navbar-link" data-tab="analytics">Analytics</a></li>
+                <li><a href="#" class="navbar-link" data-tab="settings">Settings</a></li>
+            </ul>
+            <button class="navbar-cta" id="navStartBtn"><i class="fas fa-play"></i> Start AI</button>
+            <button class="navbar-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <!-- Background video (place BACKGROUND.mp4 at project root or adjust path) -->
+        <video id="bgVideo" class="hero-video" autoplay muted loop playsinline>
+            <source src="./BACKGROUND.mp4" type="video/mp4">
+            <!-- fallback poster if video not available -->
+        </video>
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-content">
+            <h1>Advanced Smart Navigation AI</h1>
+            <p>Real-time object detection & intelligent voice guidance for enhanced situational awareness</p>
+            <button class="hero-cta" id="heroStartBtn"><i class="fas fa-camera"></i> Start Live Detection</button>
+        </div>
+    </section>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" data-tab="main"><i class="fas fa-video"></i> Main View</button>
+            <button class="tab-btn" data-tab="analytics"><i class="fas fa-chart-line"></i> Analytics</button>
+            <button class="tab-btn" data-tab="settings"><i class="fas fa-cog"></i> Settings</button>
+            <button class="tab-btn" data-tab="help"><i class="fas fa-question-circle"></i> Help</button>
+        </div>
+
+        <!-- Main Tab -->
+        <div class="tab-content active" id="main-tab">
+            <!-- Stat Cards -->
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalDetections">0</div>
+                    <div class="stat-label"><i class="fas fa-cube"></i> Objects Detected</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="avgConfidence">0%</div>
+                    <div class="stat-label"><i class="fas fa-target"></i> Accuracy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="systemStatusBadge">Ready</div>
+                    <div class="stat-label"><i class="fas fa-circle-check"></i> System Status</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="liveFps">0</div>
+                    <div class="stat-label"><i class="fas fa-tachometer-alt"></i> FPS</div>
+                </div>
+            </div>
+
+            <!-- Main Grid -->
+            <div class="main-grid">
+                <!-- Left: Video Section -->
+                <div class="video-section">
+                    <div class="video-container">
+                        <video id="video" autoplay playsinline muted></video>
+                        <canvas id="canvas"></canvas>
+                    </div>
+                    <div class="controls">
+                        <button id="startBtn" class="btn btn-primary"><i class="fas fa-play"></i> Start AI</button>
+                        <button id="stopBtn" class="btn btn-danger" disabled><i class="fas fa-stop"></i> Stop</button>
+                        <button id="listenBtn" class="btn btn-warning" disabled><i class="fas fa-microphone"></i> Listen</button>
+                    </div>
+                </div>
+
+                <!-- Right: Status Sidebar -->
+                <div class="sidebar">
+                    <!-- Live Analysis Card -->
+                    <div class="status-card">
+                        <h4 class="card-title"><i class="fas fa-search"></i> Live Analysis</h4>
+                        <div class="status-item">
+                            <div class="status-label"><i class="fas fa-microchip"></i> System</div>
+                            <div class="status-value" id="systemStatus">Initializing...</div>
+                        </div>
+                    </div>
+
+                    <!-- Detection Results Card -->
+                    <div class="status-card">
+                        <h4 class="card-title"><i class="fas fa-list"></i> Detection Results</h4>
+                        <div class="detection-list" id="detectionList">
+                            <div style="text-align: center; color: var(--text-light);">No objects detected</div>
+                        </div>
+                    </div>
+
+                    <!-- Proximity Card -->
+                    <div class="status-card">
+                        <h4 class="card-title"><i class="fas fa-map-pin"></i> Proximity Alert</h4>
+                        <div class="status-item">
+                            <div class="status-value" id="nearestStatus">Calculating...</div>
+                        </div>
+                    </div>
+
+                    <!-- Q&A Card -->
+                    <div class="qa-card">
+                        <h4 class="card-title"><i class="fas fa-comments"></i> AI Q&A</h4>
+                        <div class="question-box" id="questionBox">
+                            <div class="question-label">
+                                <span class="listening-indicator" id="listeningIndicator"></span>
+                                Your Question
+                            </div>
+                            <div class="question-text" id="questionText"></div>
+                        </div>
+                        <div class="answer-box" id="answerBox">
+                            <div class="answer-label"><i class="fas fa-check-circle"></i> AI Response</div>
+                            <div class="answer-text" id="answerText"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div class="tab-content" id="analytics-tab">
+            <h2 style="margin-bottom: 2rem; color: var(--text-dark);"><i class="fas fa-chart-bar"></i> Analytics Dashboard</h2>
+            <div class="content-grid">
+                <div class="analytics-card">
+                    <h3><i class="fas fa-gauge"></i> Overview</h3>
+                    <div class="stat-item">
+                        <span class="stat-item-label">Status</span>
+                        <span class="stat-item-value" id="statusLabel">Idle</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-item-label">Model</span>
+                        <span class="stat-item-value" id="modelNameLabel">Not loaded</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-item-label">Live FPS</span>
+                        <span class="stat-item-value" id="liveFpsAnalytics">0</span>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <h3><i class="fas fa-statistics"></i> Detection Stats</h3>
+                    <div class="stat-item">
+                        <span class="stat-item-label">Total Sessions</span>
+                        <span class="stat-item-value" id="totalSessions">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-item-label">Total Objects</span>
+                        <span class="stat-item-value" id="totalObjects">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-item-label">Avg Confidence</span>
+                        <span class="stat-item-value" id="avgConfidenceOverall">0%</span>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <h3><i class="fas fa-crown"></i> Most Detected</h3>
+                    <div id="mostDetectedList"><div style="color: var(--text-light); text-align: center;">No data</div></div>
+                </div>
+
+                <div class="analytics-card">
+                    <h3><i class="fas fa-hourglass"></i> Session Time</h3>
+                    <div class="stat-item">
+                        <span class="stat-item-label">Today</span>
+                        <span class="stat-item-value" id="todayTime">0 min</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-item-label">This Week</span>
+                        <span class="stat-item-value" id="weekTime">0 min</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div class="tab-content" id="settings-tab">
+            <h2 style="margin-bottom: 2rem; color: var(--text-dark);"><i class="fas fa-sliders"></i> Settings</h2>
+            <div class="content-grid">
+                <!-- Camera Settings -->
+                <div class="settings-card">
+                    <h3><i class="fas fa-camera"></i> Camera Settings</h3>
+                    <div class="setting-item">
+                        <label>Camera Quality</label>
+                        <select id="cameraQuality">
+                            <option value="low">Low (480p)</option>
+                            <option value="medium" selected>Medium (720p)</option>
+                            <option value="high">High (1080p)</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label>Detection Sensitivity</label>
+                        <input type="range" id="detectionSensitivity" min="0.1" max="0.9" step="0.1" value="0.3">
+                        <small style="color: var(--text-light);">Value: <strong id="sensitivityValue">0.3</strong></small>
+                    </div>
+                    <div class="setting-item">
+                        <label>Frame Rate</label>
+                        <select id="cameraFps">
+                            <option value="30" selected>30 FPS</option>
+                            <option value="60">60 FPS</option>
+                        </select>
+                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="mirrorCamera">
+                        Mirror Camera
+                    </label>
+                </div>
+
+                <!-- Audio Settings -->
+                <div class="settings-card">
+                    <h3><i class="fas fa-volume-high"></i> Audio Settings</h3>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="voiceEnabled" checked>
+                        Voice Feedback
+                    </label>
+                    <div class="setting-item">
+                        <label>Speech Rate</label>
+                        <input type="range" id="speechRate" min="0.5" max="1.5" step="0.1" value="0.9">
+                        <small style="color: var(--text-light);">Value: <strong id="speechRateValue">0.9</strong></small>
+                    </div>
+                    <div class="setting-item">
+                        <label>Volume</label>
+                        <input type="range" id="speechVolume" min="0" max="1" step="0.1" value="1">
+                        <small style="color: var(--text-light);">Value: <strong id="speechVolumeValue">1.0</strong></small>
+                    </div>
+                </div>
+
+                <!-- Interface Settings -->
+                <div class="settings-card">
+                    <h3><i class="fas fa-palette"></i> Interface</h3>
+                    <div class="setting-item">
+                        <label>Theme</label>
+                        <select id="themeSelect">
+                            <option value="light" selected>Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="auto">Auto</option>
+                        </select>
+                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="autoSaveHistory" checked>
+                        Auto-update Analytics
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="highContrastMode">
+                        High Contrast Mode
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="reduceMotion">
+                        Reduce Motion
+                    </label>
+                </div>
+
+                <!-- Object Filter -->
+                <div class="settings-card">
+                    <h3><i class="fas fa-filter"></i> Detection Filters</h3>
+                    <small style="color: var(--text-light); display: block; margin-bottom: 1rem;">Enable/disable specific object detection categories:</small>
+                    <div class="filter-grid">
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="person" checked> Person
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="laptop" checked> Laptop/PC
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="keyboard" checked> Keyboard
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="cell phone" checked> Phone/Tablet
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="tv" checked> Monitor/Screen
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="projector" checked> Projector
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="book" checked> Book/Study
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="backpack" checked> Backpack
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="chair" checked> Chair
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="table" checked> Table/Desk
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="cup" checked> Cup/Bottle
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="objectFilter" value="car" checked> Vehicles
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Tab -->
+        <div class="tab-content" id="help-tab">
+            <h2 style="margin-bottom: 2rem; color: var(--text-dark);"><i class="fas fa-circle-question"></i> Help & Guide</h2>
+            <div class="content-grid">
+                <div class="help-card">
+                    <h3><i class="fas fa-rocket"></i> Getting Started</h3>
+                    <ol>
+                        <li>Click "Start AI" to begin object detection</li>
+                        <li>Allow camera access when prompted</li>
+                        <li>Watch the live detection in real-time</li>
+                        <li>Click "Listen" to ask AI questions</li>
+                        <li>Check Analytics for usage statistics</li>
+                    </ol>
+                </div>
+
+                <div class="help-card">
+                    <h3><i class="fas fa-microphone"></i> Voice Commands</h3>
+                    <ul>
+                        <li>"What do you see?" - List all detected objects</li>
+                        <li>"How many people?" - Count specific objects</li>
+                        <li>"Is it safe?" - Check for potential hazards</li>
+                        <li>"Where is the nearest object?" - Get proximity info</li>
+                    </ul>
+                </div>
+
+                <div class="help-card">
+                    <h3><i class="fas fa-star"></i> Features</h3>
+                    <ul>
+                        <li><strong>Real-time Detection:</strong> 100+ object types including tech items</li>
+                        <li><strong>Technology Recognition:</strong> Laptops, projectors, smartboards</li>
+                        <li><strong>Distance Estimation:</strong> Proximity calculations in meters</li>
+                        <li><strong>Voice Q&A:</strong> Intelligent response system</li>
+                        <li><strong>Analytics:</strong> Usage tracking and statistics</li>
+                    </ul>
+                </div>
+
+                <div class="help-card">
+                    <h3><i class="fas fa-wrench"></i> Troubleshooting</h3>
+                    <ul>
+                        <li><strong>Camera not starting:</strong> Check permission and ensure no other app uses it</li>
+                        <li><strong>Model not loading:</strong> Check internet connection, disable VPN/ad-block</li>
+                        <li><strong>No detections:</strong> Increase sensitivity in Settings or improve lighting</li>
+                        <li><strong>Audio not speaking:</strong> Enable Voice Feedback and raise Volume</li>
+                    </ul>
+                </div>
+
+                <div class="help-card">
+                    <h3><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+                    <ul>
+                        <li><strong>S</strong> - Start AI</li>
+                        <li><strong>X</strong> - Stop AI</li>
+                        <li><strong>L</strong> - Toggle Listen</li>
+                    </ul>
+                </div>
+
+                <div class="help-card">
+                    <h3><i class="fas fa-shield-alt"></i> Privacy & Permissions</h3>
+                    <ul>
+                        <li>Video stays on your device; processing runs locally in the browser</li>
+                        <li>Analytics are session-only; no data is stored or uploaded</li>
+                        <li>Microphone access is used only when you click Listen</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.18.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js"></script>
+    
+    <script>
+        // Simple loader to inject external HTML into containers
+        async function loadInto(containerId, url) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '<div style="color:#cbd5e1">Loading...</div>';
+            try {
+                const res = await fetch(url, { cache: 'no-store' });
+                const html = await res.text();
+                container.innerHTML = html;
+            } catch (e) {
+                container.innerHTML = '<div style="color:#ef4444">Failed to load content.</div>';
+                console.error('Failed to load', url, e);
+            }
+        }
+        let model, videoStream;
+        let isRunning = false;
+        let isListening = false;
+        let currentDetections = [];
+        let lastSpoken = '';
+        let lastNearestAnnouncement = { label: '', distance: Infinity };
+        let lastAnnouncementTimeMs = 0;
+        // FPS tracking
+        let frameCountSinceLastFps = 0;
+        let lastFpsTimestampMs = 0;
+        
+        // Session tracking
+        let sessionStartTime = null;
+        
+        // Analytics data
+        let totalSessions = 0;
+        let totalObjectsDetected = 0;
+        let sessionTimes = [];
+        let objectCounts = {};
+        
+        // These element references are resolved when the main page is loaded
+        let video, canvas, ctx, startBtn, stopBtn, listenBtn, systemStatus,
+            detectionList, questionBox, questionText, answerBox, answerText,
+            listeningIndicator, nearestStatus, totalDetections, avgConfidence;
+
+        function resolveRefs() {
+            video = document.getElementById('video');
+            canvas = document.getElementById('canvas');
+            ctx = canvas ? canvas.getContext('2d') : null;
+            startBtn = document.getElementById('startBtn');
+            stopBtn = document.getElementById('stopBtn');
+            listenBtn = document.getElementById('listenBtn');
+            systemStatus = document.getElementById('systemStatus');
+            detectionList = document.getElementById('detectionList');
+            questionBox = document.getElementById('questionBox');
+            questionText = document.getElementById('questionText');
+            answerBox = document.getElementById('answerBox');
+            answerText = document.getElementById('answerText');
+            listeningIndicator = document.getElementById('listeningIndicator');
+            nearestStatus = document.getElementById('nearestStatus');
+            totalDetections = document.getElementById('totalDetections');
+            avgConfidence = document.getElementById('avgConfidence');
+        }
+
+        // Camera/model parameters for distance estimation
+        // Assumed horizontal Field-of-View for typical laptop/phone camera (degrees)
+        const CAMERA_HORIZONTAL_FOV_DEG = 65;
+        // Typical real-world object heights (meters) for coarse distance estimation
+        const TYPICAL_OBJECT_HEIGHT_M = {
+            'person': 1.7, 'car': 1.5, 'truck': 2.6, 'bus': 3.0, 'motorcycle': 1.2,
+            'bicycle': 1.1, 'dog': 0.5, 'cat': 0.25, 'chair': 1.0, 'bench': 0.9,
+            'table': 0.75, 'couch': 1.0, 'traffic light': 1.2, 'stop sign': 0.75,
+            'tv': 0.35, 'refrigerator': 1.7, 'suitcase': 0.6, 'laptop': 0.03,
+            'keyboard': 0.02, 'cell phone': 0.08, 'mouse': 0.02, 'projector': 0.2
+        };
+
+        const TYPICAL_OBJECT_WIDTH_M = {
+            'person': 0.5, 'car': 1.8, 'truck': 2.5, 'bus': 2.6, 'motorcycle': 0.8,
+            'bicycle': 0.6, 'dog': 0.3, 'cat': 0.18, 'chair': 0.45, 'bench': 1.2,
+            'table': 1.2, 'couch': 2.0, 'traffic light': 0.4, 'stop sign': 0.6,
+            'tv': 0.6, 'refrigerator': 0.7, 'suitcase': 0.4, 'laptop': 0.35,
+            'keyboard': 0.45, 'cell phone': 0.08, 'mouse': 0.08, 'projector': 0.3
+        };
+
+        // Exponential Moving Average smoothing for distances per class
+        const distanceSmoothingState = new Map(); // key: class label, value: smoothed meters
+        const DISTANCE_EMA_ALPHA = 0.3;
+
+        // Enhanced object detection with better accuracy
+        const enhancedObjects = {
+            // People & Related
+            'person': ['person', 'people', 'human', 'man', 'woman', 'child', 'boy', 'girl', 'student', 'professor', 'instructor'],
+            
+            // College/University Furniture
+            'chair': ['chair', 'seat', 'stool', 'office chair', 'desk chair', 'classroom chair'],
+            'table': ['table', 'desk', 'counter', 'study table', 'lab table', 'dining table'],
+            'bed': ['bed', 'furniture', 'bunk bed'],
+            'couch': ['couch', 'sofa', 'furniture', 'lounge'],
+            'bench': ['bench', 'seat', 'park bench', 'study bench'],
+            
+            // Writing & Note-taking
+            'book': ['book', 'magazine', 'newspaper', 'textbook', 'notebook', 'journal', 'volume'],
+            'laptop': ['laptop', 'computer', 'notebook', 'macbook', 'device', 'pc', 'portable computer', 'work station', 'lenovo', 'dell', 'hp', 'asus', 'chromebook'],
+            'cell phone': ['phone', 'cellphone', 'mobile', 'smartphone', 'iphone', 'android', 'device', 'handset', 'tablet', 'ipad'],
+            'keyboard': ['keyboard', 'input device', 'mechanical keyboard', 'wireless keyboard', 'key pad', 'typing device', 'external keyboard'],
+            'mouse': ['mouse', 'input device', 'wireless mouse', 'trackpad', 'pointing device', 'cursor control'],
+            'cup': ['cup', 'mug', 'glass', 'bottle', 'water bottle', 'coffee cup', 'beverage'],
+            'bottle': ['bottle', 'container', 'beverage', 'water bottle', 'flask', 'thermos'],
+            'backpack': ['backpack', 'bag', 'rucksack', 'pack', 'schoolbag', 'student bag', 'laptop bag', 'travel pack'],
+            'handbag': ['handbag', 'purse', 'bag', 'tote', 'satchel', 'briefcase'],
+            'suitcase': ['suitcase', 'luggage', 'case', 'travel case', 'briefcase', 'carry case'],
+            
+            // Technology & Equipment
+            'tv': ['tv', 'television', 'monitor', 'screen', 'display', 'projector screen', 'smartboard', 'interactive board', 'whiteboard display', 'lcd', 'led display', 'presentation screen'],
+            'remote': ['remote', 'controller', 'remote control', 'presentation remote', 'clicker', 'rf remote'],
+            'projector': ['projector', 'projection device', 'presentation projector', 'data projector', 'interactive projector', 'beam', 'projection equipment'],
+            'screen': ['screen', 'projection screen', 'smartboard', 'interactive display', 'electronic board', 'digital board'],
+            'microwave': ['microwave', 'oven', 'cooking equipment'],
+            'oven': ['oven', 'stove', 'cooking', 'toaster oven'],
+            'refrigerator': ['refrigerator', 'fridge', 'icebox', 'cooler'],
+            'sink': ['sink', 'basin', 'wash basin'],
+            'toilet': ['toilet', 'fixture', 'restroom fixture'],
+            
+            // Sports & Recreation (Common on campus)
+            'sports ball': ['ball', 'sports ball', 'sphere', 'basketball', 'football', 'volleyball', 'soccer ball'],
+            'bicycle': ['bicycle', 'bike', 'cycle', 'mountain bike', 'road bike'],
+            'skateboard': ['skateboard', 'board', 'longboard'],
+            'frisbee': ['frisbee', 'disc', 'flying disc'],
+            'tennis racket': ['tennis racket', 'racket', 'paddle', 'tennis equipment'],
+            'baseball bat': ['baseball bat', 'bat', 'cricket bat'],
+            'baseball glove': ['baseball glove', 'glove', 'mitt', 'catching glove'],
+            'surfboard': ['surfboard', 'board'],
+            'skis': ['skis', 'ski equipment'],
+            'snowboard': ['snowboard', 'board', 'winter sports'],
+            
+            // Writing Instruments & Supplies
+            'scissors': ['scissors', 'cutting tool', 'craft scissors'],
+            
+            // Food & Dining (Cafeteria/Kitchen)
+            'bowl': ['bowl', 'dish', 'plate', 'container'],
+            'fork': ['fork', 'utensil', 'cutlery'],
+            'knife': ['knife', 'blade', 'utensil', 'cutlery'],
+            'spoon': ['spoon', 'utensil', 'cutlery'],
+            'wine glass': ['wine glass', 'glass', 'goblet', 'drinking glass'],
+            'banana': ['banana', 'fruit', 'snack'],
+            'apple': ['apple', 'fruit', 'snack'],
+            'sandwich': ['sandwich', 'food', 'meal'],
+            'orange': ['orange', 'fruit', 'citrus', 'snack'],
+            'broccoli': ['broccoli', 'vegetable', 'food'],
+            'carrot': ['carrot', 'vegetable', 'food'],
+            'hot dog': ['hot dog', 'food', 'meal'],
+            'pizza': ['pizza', 'food', 'meal'],
+            'donut': ['donut', 'doughnut', 'pastry', 'snack'],
+            'cake': ['cake', 'pastry', 'dessert', 'food'],
+            
+            // Transportation (Campus Movement)
+            'car': ['car', 'vehicle', 'automobile', 'sedan', 'suv'],
+            'truck': ['truck', 'lorry', 'pickup', 'vehicle'],
+            'bus': ['bus', 'coach', 'minibus', 'school bus', 'shuttle bus'],
+            'motorcycle': ['motorcycle', 'motorbike', 'bike', 'scooter'],
+            'airplane': ['airplane', 'plane', 'aircraft'],
+            'train': ['train', 'locomotive', 'railway'],
+            'boat': ['boat', 'ship', 'vessel', 'sailboat'],
+            
+            // Animals (Campus Mascots/Wildlife)
+            'dog': ['dog', 'puppy', 'canine', 'pet', 'service dog'],
+            'cat': ['cat', 'kitten', 'feline', 'pet'],
+            'bird': ['bird', 'pigeon', 'sparrow', 'parrot'],
+            'horse': ['horse', 'pony', 'equine'],
+            'sheep': ['sheep', 'lamb', 'woolly'],
+            'cow': ['cow', 'bull', 'cattle'],
+            'elephant': ['elephant', 'large animal'],
+            'bear': ['bear', 'grizzly', 'mascot'],
+            'zebra': ['zebra', 'striped animal'],
+            'giraffe': ['giraffe', 'tall animal'],
+            
+            // Plants & Outdoor
+            'potted plant': ['plant', 'potted plant', 'flower', 'vegetation', 'indoor plant', 'foliage'],
+            
+            // Clothing & Accessories
+            'tie': ['tie', 'necktie', 'neckwear'],
+            'umbrella': ['umbrella', 'parasol', 'rain gear'],
+            
+            // Office & Academic Supplies
+            'vase': ['vase', 'container', 'pottery', 'decoration'],
+            'clock': ['clock', 'timepiece', 'wall clock', 'digital clock'],
+            
+            // Safety & Utilities
+            'traffic light': ['traffic light', 'signal', 'stoplight', 'intersection signal'],
+            'fire hydrant': ['fire hydrant', 'hydrant', 'safety equipment'],
+            'stop sign': ['stop sign', 'sign', 'traffic sign'],
+            'parking meter': ['parking meter', 'meter', 'parking equipment'],
+            
+            // Misc Items (Common on Campus)
+            'hair drier': ['hair drier', 'appliance', 'personal care'],
+            'toothbrush': ['toothbrush', 'brush', 'personal care'],
+            'teddy bear': ['teddy bear', 'stuffed animal', 'toy'],
+            'kite': ['kite', 'flying toy', 'outdoor toy'],
+        };
+
+        // Speech Recognition Setup
+        let recognition;
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.continuous = true;
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+            
+            recognition.onstart = () => {
+                isListening = true;
+                listenBtn.textContent = '🎤 Listening...';
+                listeningIndicator.style.display = 'inline-block';
+                systemStatus.textContent = 'Listening for questions...';
+            };
+            
+            recognition.onresult = (event) => {
+                const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
+                questionText.textContent = transcript;
+                questionBox.classList.add('active');
+                
+                const answer = analyzeQuestionAndAnswer(transcript);
+                answerText.textContent = answer;
+                answerBox.classList.add('active');
+                
+                speak(answer);
+            };
+            
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                systemStatus.textContent = 'Speech recognition error. Click "Listen" again.';
+            };
+            
+            recognition.onend = () => {
+                if (isListening) {
+                    setTimeout(() => {
+                        if (isListening) recognition.start();
+                    }, 100);
+                } else {
+                    listenBtn.textContent = '🎤 Listen';
+                    listeningIndicator.style.display = 'none';
+                }
+            };
+        } else {
+            listenBtn.disabled = true;
+            systemStatus.textContent = 'Speech recognition not supported.';
+        }
+
+        async function ensureTFBackend() {
+            try {
+                await tf.ready();
+                const okWebgl = await tf.setBackend('webgl').then(() => tf.getBackend() === 'webgl').catch(() => false);
+                if (!okWebgl) {
+                    await tf.setBackend('cpu');
+                }
+                await tf.ready();
+            } catch (e) {
+                console.warn('TFJS backend setup warning:', e);
+            }
+        }
+
+        async function loadModel() {
+            try {
+                systemStatus.textContent = 'Loading AI model...';
+                await ensureTFBackend();
+
+                const loadAttempts = [
+                    () => cocoSsd.load({ base: 'lite_mobilenet_v2' }),
+                    () => cocoSsd.load({ base: 'mobilenet_v2' }),
+                    () => cocoSsd.load(),
+                ];
+
+                let lastErr;
+                for (const attempt of loadAttempts) {
+                    try {
+                        model = await attempt();
+                        systemStatus.textContent = 'AI model loaded successfully!';
+                        const modelNameLabel = document.getElementById('modelNameLabel');
+                        if (modelNameLabel) modelNameLabel.textContent = 'COCO-SSD';
+                        return true;
+                    } catch (e) {
+                        lastErr = e;
+                        console.warn('Model load attempt failed:', e);
+                    }
+                }
+                throw lastErr || new Error('All loading methods failed');
+            } catch (error) {
+                console.error('Model loading error:', error);
+                systemStatus.textContent = 'Failed to load model. Check internet/ad-block/VPN and retry.';
+                return false;
+            }
+        }
+
+        async function detectObjects() {
+            if (!isRunning) return;
+
+            try {
+                if (!canvas || !ctx || !video) return;
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                const sensitivity = parseFloat(document.getElementById('detectionSensitivity').value);
+                
+                const enabledFilters = new Set();
+                document.querySelectorAll('.objectFilter:checked').forEach(cb => {
+                    enabledFilters.add(cb.value);
+                });
+                
+                const predictions = await model.detect(canvas);
+                
+                currentDetections = predictions.filter(pred => {
+                    const isEnabled = Array.from(enabledFilters).some(filter => 
+                        pred.class.toLowerCase().includes(filter.toLowerCase()) || 
+                        filter.toLowerCase().includes(pred.class.toLowerCase())
+                    );
+                    if (!isEnabled) return false;
+                    
+                    if (pred.score > sensitivity) return true;
+                    
+                    if (['person', 'car', 'truck', 'bus', 'motorcycle', 'bicycle'].includes(pred.class)) {
+                        return pred.score > (sensitivity * 0.7);
+                    }
+                    
+                    return false;
+                });
+                
+                currentDetections.forEach(det => {
+                    objectCounts[det.class] = (objectCounts[det.class] || 0) + 1;
+                    totalObjectsDetected++;
+                });
+                
+                updateDetectionDisplay();
+                drawDetections();
+                updateNearestObject();
+                updateStats();
+                
+                try {
+                    frameCountSinceLastFps++;
+                    const now = performance.now();
+                    if (!lastFpsTimestampMs) lastFpsTimestampMs = now;
+                    const elapsed = now - lastFpsTimestampMs;
+                    if (elapsed >= 500) {
+                        const fps = Math.round((frameCountSinceLastFps / (elapsed / 1000)));
+                        const liveFpsEl = document.getElementById('liveFps');
+                        const liveFpsAnalytics = document.getElementById('liveFpsAnalytics');
+                        if (liveFpsEl) liveFpsEl.textContent = String(fps);
+                        if (liveFpsAnalytics) liveFpsAnalytics.textContent = String(fps);
+                        frameCountSinceLastFps = 0;
+                        lastFpsTimestampMs = now;
+                    }
+                } catch {}
+                
+            } catch (error) {
+                console.error('Detection error:', error);
+            }
+            
+            requestAnimationFrame(detectObjects);
+        }
+
+        function updateDetectionDisplay() {
+            if (!detectionList) return;
+            if (currentDetections.length === 0) {
+                detectionList.innerHTML = '<div style="text-align: center; color: var(--text-light);">No objects detected</div>';
+                totalDetections.textContent = '0';
+                avgConfidence.textContent = '0%';
+                return;
+            }
+            
+            const objectCountsLocal = {};
+            currentDetections.forEach(det => {
+                objectCountsLocal[det.class] = (objectCountsLocal[det.class] || 0) + 1;
+            });
+            
+            detectionList.innerHTML = Object.entries(objectCountsLocal).map(([className, count]) => `
+                <div class="detection-item">
+                    <div>
+                        <div class="detection-name">${className}</div>
+                        <small style="color: var(--text-light);">${count} detected</small>
+                    </div>
+                    <div class="detection-count">${count}</div>
+                </div>
+            `).join('');
+            totalDetections.textContent = currentDetections.length;
+
+            const totalConfidence = currentDetections.reduce((sum, det) => sum + det.score, 0);
+            avgConfidence.textContent = `${Math.round(totalConfidence / currentDetections.length * 100)}%`;
+        }
+
+        function drawDetections() {
+            if (!canvas || !ctx || !video) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            currentDetections.forEach(det => {
+                const [x, y, w, h] = det.bbox;
+                const confidence = Math.round(det.score * 100);
+                const distance = getSmoothedDistance(det.class, estimateDistanceMeters(det, canvas.width, canvas.height));
+                
+                ctx.strokeStyle = confidence > 70 ? '#2F80ED' : confidence > 50 ? '#56CCF2' : '#EB5757';
+                ctx.lineWidth = 3;
+                ctx.strokeRect(x, y, w, h);
+                
+                const distanceLabel = distance ? ` ~ ${formatDistance(distance)}` : '';
+                const label = `${det.class} ${confidence}%${distanceLabel}`;
+                const labelWidth = ctx.measureText(label).width + 10;
+                ctx.fillStyle = 'rgba(0,0,0,0.9)';
+                ctx.fillRect(x, y - 25, labelWidth, 25);
+                
+                ctx.fillStyle = '#fff';
+                ctx.font = '14px Inter';
+                ctx.fillText(label, x + 5, y - 8);
+            });
+        }
+
+        function estimateDistanceMeters(det, frameWidth, frameHeight) {
+            const objectLabel = det.class.toLowerCase();
+            const realHeightM = TYPICAL_OBJECT_HEIGHT_M[objectLabel];
+            const realWidthM = TYPICAL_OBJECT_WIDTH_M[objectLabel];
+
+            const hFovRad = (CAMERA_HORIZONTAL_FOV_DEG * Math.PI) / 180;
+            const aspect = frameWidth / Math.max(1, frameHeight);
+            const vFovRad = 2 * Math.atan(Math.tan(hFovRad / 2) / aspect);
+
+            const focalVyPx = (frameHeight / 2) / Math.tan(vFovRad / 2);
+            const focalHxPx = (frameWidth / 2) / Math.tan(hFovRad / 2);
+
+            let estimates = [];
+            const bboxHeightPx = det.bbox[3];
+            const bboxWidthPx = det.bbox[2];
+
+            if (realHeightM && bboxHeightPx && bboxHeightPx > 1) {
+                const zFromHeight = (realHeightM * focalVyPx) / bboxHeightPx;
+                estimates.push(zFromHeight);
+            }
+
+            if (realWidthM && bboxWidthPx && bboxWidthPx > 1) {
+                const zFromWidth = (realWidthM * focalHxPx) / bboxWidthPx;
+                estimates.push(zFromWidth);
+            }
+
+            if (estimates.length === 0) return null;
+
+            const invSum = estimates.reduce((acc, v) => acc + (1 / Math.max(1e-6, v)), 0);
+            const distanceM = estimates.length / invSum;
+
+            return Math.min(Math.max(distanceM, 0.2), 25);
+        }
+
+        function getSmoothedDistance(label, rawDistance) {
+            if (rawDistance == null || !isFinite(rawDistance)) return null;
+            const key = label.toLowerCase();
+            const prev = distanceSmoothingState.get(key);
+            const next = prev == null ? rawDistance : (DISTANCE_EMA_ALPHA * rawDistance + (1 - DISTANCE_EMA_ALPHA) * prev);
+            distanceSmoothingState.set(key, next);
+            return next;
+        }
+
+        function updateNearestObject() {
+            if (!nearestStatus) return;
+            if (!currentDetections || currentDetections.length === 0) {
+                nearestStatus.textContent = 'No objects detected';
+                return;
+            }
+
+            let nearest = null;
+            let nearestDistance = Infinity;
+            for (const det of currentDetections) {
+                const d = getSmoothedDistance(det.class, estimateDistanceMeters(det, canvas.width, canvas.height));
+                if (d !== null && d < nearestDistance) {
+                    nearestDistance = d;
+                    nearest = det;
+                }
+            }
+
+            if (!nearest) {
+                let fallback = null;
+                let maxHeight = 0;
+                for (const det of currentDetections) {
+                    const h = det.bbox[3];
+                    if (h > maxHeight) { maxHeight = h; fallback = det; }
+                }
+                if (fallback) {
+                    nearestStatus.textContent = `Closest (relative): ${fallback.class}`;
+                    maybeAnnounceNearest(`${fallback.class}`, null);
+                } else {
+                    nearestStatus.textContent = 'No objects detected';
+                }
+                return;
+            }
+
+            const label = `${nearest.class}`;
+            const distanceLabel = formatDistance(nearestDistance);
+            nearestStatus.textContent = `${label} at ${distanceLabel}`;
+            maybeAnnounceNearest(label, nearestDistance);
+        }
+
+        function maybeAnnounceNearest(label, distanceM) {
+            if (isListening) return;
+            const now = performance.now();
+            const changedLabel = label !== lastNearestAnnouncement.label;
+            const changedDistance = Math.abs((distanceM ?? lastNearestAnnouncement.distance) - lastNearestAnnouncement.distance) > 0.3;
+            const timeElapsed = now - lastAnnouncementTimeMs > 4000;
+
+            if (changedLabel || changedDistance || timeElapsed) {
+                const spoken = distanceM ? `${label} at ${formatDistance(distanceM)}` : `${label} is the closest`;
+                speak(spoken);
+                lastNearestAnnouncement = { label, distance: distanceM ?? lastNearestAnnouncement.distance };
+                lastAnnouncementTimeMs = now;
+            }
+        }
+
+        function formatDistance(dMeters) {
+            if (!Number.isFinite(dMeters)) return '';
+            if (dMeters < 1) {
+                const cm = Math.round(dMeters * 100);
+                return `${cm} cm`;
+            }
+            const rounded = Math.round(dMeters * 10) / 10;
+            return `${rounded} m`;
+        }
+
+        function analyzeQuestionAndAnswer(question) {
+            if (currentDetections.length === 0) {
+                return "I don't see any objects in the current view. The area appears to be clear.";
+            }
+
+            const objects = currentDetections.map(obj => obj.class.toLowerCase());
+            const uniqueObjects = [...new Set(objects)];
+            const objectCountsLocal = {};
+            objects.forEach(obj => objectCountsLocal[obj] = (objectCountsLocal[obj] || 0) + 1);
+            
+            if (question.includes('what') && question.includes('see')) {
+                const descriptions = uniqueObjects.map(obj => {
+                    const count = objectCountsLocal[obj];
+                    return count > 1 ? `${count} ${obj}s` : obj;
+                });
+                return `I can see ${descriptions.join(', ')} in the current view.`;
+            }
+            
+            if (question.includes('how many')) {
+                const targetObject = findTargetObject(question, uniqueObjects);
+                if (targetObject) {
+                    const count = objectCountsLocal[targetObject];
+                    return `I can see ${count} ${targetObject}${count > 1 ? 's' : ''}.`;
+                } else {
+                    const descriptions = Object.entries(objectCountsLocal).map(([obj, num]) => 
+                        `${num} ${obj}${num > 1 ? 's' : ''}`
+                    );
+                    return `I can see ${descriptions.join(', ')}.`;
+                }
+            }
+            
+            if (question.includes('where')) {
+                const targetObject = findTargetObject(question, uniqueObjects);
+                if (targetObject) {
+                    const detections = currentDetections.filter(d => d.class.toLowerCase() === targetObject);
+                    const positions = detections.map(obj => {
+                        const centerX = obj.bbox[0] + obj.bbox[2] / 2;
+                        const centerY = obj.bbox[1] + obj.bbox[3] / 2;
+                        return describePosition(centerX, centerY, canvas.width, canvas.height, obj.class);
+                    });
+                    return positions.join('. ') + '.';
+                }
+            }
+            
+            if (question.includes('danger') || question.includes('safe')) {
+                const dangerousObjects = objects.filter(obj => 
+                    ['person', 'car', 'truck', 'motorcycle', 'bicycle', 'bus', 'dog'].includes(obj)
+                );
+                if (dangerousObjects.length > 0) {
+                    return `⚠️ Caution! I see ${dangerousObjects.join(', ')} ahead. Please be careful.`;
+                } else {
+                    return "✅ The area appears to be safe. I don't see any immediate hazards.";
+                }
+            }
+            
+            if (question.includes('clear') || question.includes('obstacle')) {
+                const obstacles = objects.filter(obj => 
+                    ['person', 'car', 'truck', 'motorcycle', 'bicycle', 'bus', 'chair', 'bench', 'table'].includes(obj)
+                );
+                if (obstacles.length > 0) {
+                    return `🚫 The path is not clear. I can see ${obstacles.join(', ')} that might be obstacles.`;
+                } else {
+                    return "✅ The path appears to be clear of major obstacles.";
+                }
+            }
+            
+            const descriptions = uniqueObjects.map(obj => {
+                const count = objectCountsLocal[obj];
+                return count > 1 ? `${count} ${obj}s` : obj;
+            });
+            return `I can see ${descriptions.join(', ')} in the current view. What specific information would you like to know about them?`;
+        }
+
+        function findTargetObject(question, availableObjects) {
+            for (const obj of availableObjects) {
+                if (question.includes(obj)) return obj;
+            }
+            return null;
+        }
+
+        function describePosition(x, y, width, height, objectName) {
+            let position = '';
+            
+            if (x < width / 3) position += 'left ';
+            else if (x > 2 * width / 3) position += 'right ';
+            else position += 'center ';
+            
+            if (y < height / 3) position += 'top';
+            else if (y > 2 * height / 3) position += 'bottom';
+            else position += 'middle';
+            
+            return `${objectName} is in the ${position}`;
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window && text !== lastSpoken && document.getElementById('voiceEnabled').checked) {
+                const utter = new SpeechSynthesisUtterance(text);
+                utter.rate = parseFloat(document.getElementById('speechRate').value);
+                const volEl = document.getElementById('speechVolume');
+                if (volEl) utter.volume = parseFloat(volEl.value);
+                utter.pitch = 1.0;
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(utter);
+                lastSpoken = text;
+            }
+        }
+
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 },
+                        facingMode: 'environment'
+                    } 
+                });
+                video.srcObject = stream;
+                systemStatus.textContent = 'Camera started. Ready to begin detection.';
+            } catch (err) {
+                systemStatus.textContent = 'Camera access denied or not available.';
+                console.error('Camera error:', err);
+            }
+        }
+
+        function updateStats() {
+            totalDetections.textContent = currentDetections.length;
+            if (currentDetections.length > 0) {
+                const avgConf = Math.round(currentDetections.reduce((sum, det) => sum + det.score, 0) / currentDetections.length * 100);
+                avgConfidence.textContent = avgConf + '%';
+            } else {
+                avgConfidence.textContent = '0%';
+            }
+        }
+
+        function wireButtons() {
+            if (!startBtn || !stopBtn || !listenBtn) return;
+
+            startBtn.onclick = async () => {
+                if (!model) {
+                    const modelLoaded = await loadModel();
+                    if (!modelLoaded) return;
+                }
+                isRunning = true;
+                sessionStartTime = Date.now();
+                totalSessions++;
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                listenBtn.disabled = false;
+                detectObjects();
+                systemStatus.textContent = 'AI is running. Click "Listen" to ask questions.';
+                const statusEl = document.getElementById('statusLabel');
+                if (statusEl) statusEl.textContent = 'Running';
+                const statusBadge = document.getElementById('systemStatusBadge');
+                if (statusBadge) statusBadge.textContent = 'Running';
+                frameCountSinceLastFps = 0;
+                lastFpsTimestampMs = performance.now();
+            };
+
+            stopBtn.onclick = () => {
+                isRunning = false;
+                isListening = false;
+                if (sessionStartTime) {
+                    const sessionDuration = Date.now() - sessionStartTime;
+                    sessionTimes.push({ start: sessionStartTime, duration: sessionDuration });
+                    sessionStartTime = null;
+                }
+                if (recognition) recognition.stop();
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                listenBtn.disabled = true;
+                listenBtn.textContent = '🎤 Listen';
+                if (listeningIndicator) listeningIndicator.style.display = 'none';
+                questionBox.classList.remove('active');
+                answerBox.classList.remove('active');
+                systemStatus.textContent = 'AI stopped.';
+                window.speechSynthesis.cancel();
+                const statusEl = document.getElementById('statusLabel');
+                if (statusEl) statusEl.textContent = 'Idle';
+                const statusBadge = document.getElementById('systemStatusBadge');
+                if (statusBadge) statusBadge.textContent = 'Ready';
+                const liveFpsEl = document.getElementById('liveFps');
+                if (liveFpsEl) liveFpsEl.textContent = '0';
+            };
+
+            listenBtn.onclick = () => {
+                if (!isListening && recognition) {
+                    isListening = true;
+                    recognition.start();
+                } else if (isListening) {
+                    isListening = false;
+                    recognition.stop();
+                }
+            };
+        }
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const tabName = btn.getAttribute('data-tab');
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
+                const tabElement = document.getElementById(tabName + '-tab');
+                if (tabElement) {
+                    tabElement.classList.add('active');
+                    if (tabName === 'analytics') {
+                        updateAnalytics();
+                    } else if (tabName === 'settings') {
+                        wireSettings();
+                    }
+                }
+            });
+        });
+
+        // Navbar menu links
+        document.querySelectorAll('.navbar-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tabName = link.getAttribute('data-tab');
+                document.querySelectorAll('.navbar-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                const tabBtn = document.querySelector(`[data-tab="${tabName}"]`);
+                if (tabBtn && tabBtn.classList.contains('tab-btn')) tabBtn.classList.add('active');
+                const tabElement = document.getElementById(tabName + '-tab');
+                if (tabElement) tabElement.classList.add('active');
+            });
+        });
+
+        // Hero and Navbar CTA buttons
+        document.getElementById('heroStartBtn').addEventListener('click', async () => {
+            if (!model) {
+                const modelLoaded = await loadModel();
+                if (!modelLoaded) return;
+            }
+            isRunning = true;
+            sessionStartTime = Date.now();
+            totalSessions++;
+            if (startBtn) startBtn.disabled = true;
+            if (stopBtn) stopBtn.disabled = false;
+            if (listenBtn) listenBtn.disabled = false;
+            detectObjects();
+            if (systemStatus) systemStatus.textContent = 'AI is running. Click "Listen" to ask questions.';
+            const statusEl = document.getElementById('statusLabel');
+            if (statusEl) statusEl.textContent = 'Running';
+            frameCountSinceLastFps = 0;
+            lastFpsTimestampMs = performance.now();
+            // Switch to main tab
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            const mainBtn = document.querySelector('[data-tab="main"]');
+            if (mainBtn) mainBtn.classList.add('active');
+            document.getElementById('main-tab').classList.add('active');
+        });
+
+        document.getElementById('navStartBtn').addEventListener('click', async () => {
+            if (!model) {
+                const modelLoaded = await loadModel();
+                if (!modelLoaded) return;
+            }
+            isRunning = true;
+            sessionStartTime = Date.now();
+            totalSessions++;
+            if (startBtn) startBtn.disabled = true;
+            if (stopBtn) stopBtn.disabled = false;
+            if (listenBtn) listenBtn.disabled = false;
+            detectObjects();
+            if (systemStatus) systemStatus.textContent = 'AI is running. Click "Listen" to ask questions.';
+            frameCountSinceLastFps = 0;
+            lastFpsTimestampMs = performance.now();
+        });
+
+        function updateAnalytics() {
+            document.getElementById('totalSessions').textContent = totalSessions;
+            document.getElementById('totalObjects').textContent = totalObjectsDetected;
+            
+            const avgConf = currentDetections.length > 0 
+                ? Math.round(currentDetections.reduce((sum, obj) => sum + obj.score, 0) / currentDetections.length * 100)
+                : 0;
+            document.getElementById('avgConfidenceOverall').textContent = avgConf + '%';
+            
+            const mostDetected = Object.entries(objectCounts)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5);
+            
+            const mostDetectedList = document.getElementById('mostDetectedList');
+            if (mostDetected.length === 0) {
+                mostDetectedList.innerHTML = '<div style="color: var(--text-light); text-align: center;">No data</div>';
+            } else {
+                mostDetectedList.innerHTML = mostDetected.map(([obj, count]) => `
+                    <div class="stat-item">
+                        <span class="stat-item-label">${obj}</span>
+                        <span class="stat-item-value">${count}</span>
+                    </div>
+                `).join('');
+            }
+            
+            const today = new Date().toDateString();
+            const todaySessions = sessionTimes.filter(s => new Date(s.start).toDateString() === today);
+            const todayMinutes = Math.round(todaySessions.reduce((sum, s) => sum + (s.duration || 0), 0) / 60000);
+            document.getElementById('todayTime').textContent = todayMinutes + ' min';
+            
+            const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+            const weekSessions = sessionTimes.filter(s => new Date(s.start) > weekAgo);
+            const weekMinutes = Math.round(weekSessions.reduce((sum, s) => sum + (s.duration || 0), 0) / 60000);
+            document.getElementById('weekTime').textContent = weekMinutes + ' min';
+        }
+
+        function wireSettings() {
+            const detSens = document.getElementById('detectionSensitivity');
+            if (detSens) detSens.addEventListener('input', (e) => {
+                const el = document.getElementById('sensitivityValue');
+                if (el) el.textContent = e.target.value;
+            });
+
+            const speechRate = document.getElementById('speechRate');
+            if (speechRate) speechRate.addEventListener('input', (e) => {
+                const el = document.getElementById('speechRateValue');
+                if (el) el.textContent = e.target.value;
+            });
+
+            const speechVolume = document.getElementById('speechVolume');
+            if (speechVolume) speechVolume.addEventListener('input', (e) => {
+                const el = document.getElementById('speechVolumeValue');
+                if (el) el.textContent = Number(e.target.value).toFixed(1);
+            });
+
+            const highContrastMode = document.getElementById('highContrastMode');
+            if (highContrastMode) highContrastMode.addEventListener('change', (e) => {
+                document.body.classList.toggle('high-contrast', e.target.checked);
+            });
+
+            const reduceMotion = document.getElementById('reduceMotion');
+            if (reduceMotion) reduceMotion.addEventListener('change', (e) => {
+                document.body.classList.toggle('reduce-motion', e.target.checked);
+            });
+
+            const videoContainer = document.querySelector('.video-container');
+            const mirror = document.getElementById('mirrorCamera');
+            if (mirror) mirror.addEventListener('change', (e) => {
+                if (videoContainer) {
+                    videoContainer.classList.toggle('mirrored', e.target.checked);
+                }
+            });
+        }
+
+        // Initialize
+        resolveRefs();
+        wireButtons();
+        startCamera();
+    </script>
+</body>
+</html>
